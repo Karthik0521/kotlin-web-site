@@ -61,6 +61,8 @@ wait_for_wrapper()
     OUTCOME=$?
     if [[ $OUTCOME -ne 0 ]]; then
         echoerr "$SCRIPT_NAME: timeout occurred after waiting $TIMEOUT seconds for $URI"
+        echo "Current listening processes:"
+        docker ps
     fi
     return $OUTCOME
 }
@@ -165,6 +167,9 @@ if [[ $TIMEOUT_PATH =~ "busybox" ]]; then
 else
     ON_BUSY_BOX=0
 fi
+
+echo "Current listening processes:"
+docker ps
 
 if [[ $CHILD -gt 0 ]]; then
     wait_for
